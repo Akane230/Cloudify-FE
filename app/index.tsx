@@ -76,7 +76,7 @@ const SignInPage = () => {
             </View>
           </View>
 
-          <TouchableOpacity style={styles.button} onPress={() => router.push('signUpPage1')}>
+          <TouchableOpacity style={styles.button} onPress={() => router.push('/tabs/home')}>
             <Text style={styles.buttonText}>SIGN IN</Text>
           </TouchableOpacity>
           
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   safeAreaContainer: {
     flex: 1,
     backgroundColor: "black",
-    marginTop: -15,
+    marginTop: -50,
   },
   container: {
 
