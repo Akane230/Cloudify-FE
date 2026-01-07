@@ -76,12 +76,12 @@ const SignInPage = () => {
             </View>
           </View>
 
-          <TouchableOpacity style={styles.button} onPress={() => router.push('/signUpPage')}>
+          <TouchableOpacity style={styles.button} onPress={() => router.push('signUpPage1')}>
             <Text style={styles.buttonText}>SIGN IN</Text>
           </TouchableOpacity>
           
           <Text style={styles.signUpText}>
-            Don't have an account? <Text style={styles.signUpLink} onPress={() => router.push('/signUpPage')}>Sign Up</Text>
+            Don't have an account? <Text style={styles.signUpLink} onPress={() => router.push('signUpPage1')}>Sign Up</Text>
           </Text>
           
         </View>
