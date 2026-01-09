@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {Ionicons} from '@expo/vector-icons';
 import { useFonts, Unna_700Bold } from '@expo-google-fonts/unna';
 
-const SignInPage = () => {
+const SignUpPage = () => {
 
   const [fontsLoaded] = useFonts({
     UnnaBold: Unna_700Bold,
@@ -16,9 +16,9 @@ const SignInPage = () => {
 
   const router = useRouter();
 
-  const [signInEmail, setSignInEmail] = useState("");
-  const [signInPassword, setSignInPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); 
+  const [signUpFirstName, setSignUpFirstName] = useState("");
+  const [signUpLastName, setSignUpLastName] = useState("");
+  const [signUpUsername, setSignUpUsername] = useState("");
 
   if (!fontsLoaded) {
     return (
@@ -42,46 +42,60 @@ const SignInPage = () => {
           />
         </View>
 
-        <View style={styles.signInContainer}>
+        <View style={styles.signUpContainer}>
           <View style={styles.outerContainer}>
-            <Text style={styles.label}>Email</Text>
+            <Text style={styles.label}>First Name</Text>
             <View style={styles.innerContainer}>
               <TextInput
-              placeholder="enter email address"
+              placeholder="first name"
               placeholderTextColor="white"
               style={styles.input}
-              value={signInEmail}
-              onChangeText={setSignInEmail}
-              keyboardType="email-address"
+              value={signUpFirstName}
+              onChangeText={setSignUpFirstName}
+              keyboardType="default"
               autoCapitalize="none"
             />
             </View>
           </View>
 
           <View style={styles.outerContainer}>
-            <Text style={styles.label}>Password</Text> 
+            <Text style={styles.label}>Last Name</Text> 
             <View style={styles.innerContainer}>
               <TextInput
-                placeholder="enter password"
+                placeholder="last name"
                 placeholderTextColor="white"
-                style={styles.passwordInput}
-                value={signInPassword}
-                onChangeText={setSignInPassword}
-                secureTextEntry={!showPassword}
+                style={styles.input}
+                value={signUpLastName}
+                onChangeText={setSignUpLastName}
+                keyboardType="default"
+                autoCapitalize="none"
               />
-
-              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                <Ionicons name={showPassword ? "eye-off" : "eye"} size={20} color="white" />  
-              </TouchableOpacity>  
             </View>
           </View>
 
-          <TouchableOpacity style={styles.button} onPress={() => router.push('/tabs/home')}>
-            <Text style={styles.buttonText}>SIGN IN</Text>
+          <View style={styles.outerContainer}>
+            <Text style={styles.label}>Username</Text> 
+            <View style={styles.innerContainer}>
+              <TextInput
+                placeholder="username"
+                placeholderTextColor="white"
+                style={styles.input}
+                value={signUpUsername}
+                onChangeText={setSignUpUsername}
+                keyboardType="default"
+                autoCapitalize="none"
+              />
+            </View>
+          </View>
+
+          <TouchableOpacity style={styles.button} onPress={() => router.push('signUpPage2')}>
+            <Text style={styles.buttonText}>NEXT</Text>
           </TouchableOpacity>
+
+          <Text style={styles.pageNumber}>1 / 2 pages</Text>
           
           <Text style={styles.signUpText}>
-            Don't have an account? <Text style={styles.signUpLink} onPress={() => router.push('signUpPage1')}>Sign Up</Text>
+            Already have an account? <Text style={styles.signUpLink} onPress={() => router.push('/')}>Sign In</Text>
           </Text>
           
         </View>
@@ -112,7 +126,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     top: 75,
   },
-  signInContainer: {
+  signUpContainer: {
     marginTop: 50,
     paddingHorizontal: 35,
   },
@@ -163,6 +177,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: 'UnnaBold',
   },
+  pageNumber: {
+    color: 'white',
+    fontSize: 12,
+    marginTop: 20,
+    textAlign: 'right',
+  },
   signUpText: {
     color: 'white',
     fontSize: 16,
@@ -174,4 +194,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignInPage;
+export default SignUpPage;
