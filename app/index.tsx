@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet, Image, useWindowDimensions, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Image, useWindowDimensions, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import React from 'react';
 import {useRouter} from 'expo-router';
-import { useState } from 'react'; 
+import { useState, useEffect } from 'react'; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {Ionicons} from '@expo/vector-icons';
 import { useFonts, Unna_700Bold } from '@expo-google-fonts/unna';
+import * as SplashScreen from 'expo-splash-screen';
+import { authService } from '../services/authService';
 
 const SignInPage = () => {
 
@@ -19,13 +21,36 @@ const SignInPage = () => {
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignIn = async () => {
+    if (!signInEmail || !signInPassword) {
+      Alert.alert("Error", "Please enter both email and password.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    const response = await authService.login(signInEmail, signInPassword);
+
+    if (response.success) {
+      Alert.alert("Success", "You have successfully logged in!");
+      router.push('/tabs/message');
+    } else {
+      Alert.alert("Error", response.message || "Invalid email or password.");
+    }
+
+    setIsLoading(false);
+  };
+  
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
   if (!fontsLoaded) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#fff" />
-      </View>
-    );
+    return null;
   }
 
   return (
@@ -47,14 +72,15 @@ const SignInPage = () => {
             <Text style={styles.label}>Email</Text>
             <View style={styles.innerContainer}>
               <TextInput
-              placeholder="enter email address"
-              placeholderTextColor="white"
-              style={styles.input}
-              value={signInEmail}
-              onChangeText={setSignInEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
+                placeholder="enter email address"
+                placeholderTextColor="white"
+                style={styles.input}
+                value={signInEmail}
+                onChangeText={setSignInEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                editable={!isLoading}
+              />
             </View>
           </View>
 
@@ -68,6 +94,7 @@ const SignInPage = () => {
                 value={signInPassword}
                 onChangeText={setSignInPassword}
                 secureTextEntry={!showPassword}
+                editable={!isLoading}
               />
 
               <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
@@ -76,8 +103,16 @@ const SignInPage = () => {
             </View>
           </View>
 
-          <TouchableOpacity style={styles.button} onPress={() => router.push('/tabs/home')}>
-            <Text style={styles.buttonText}>SIGN IN</Text>
+          <TouchableOpacity 
+            style={[styles.button, isLoading && styles.buttonDisabled]} 
+            onPress={handleSignIn}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <ActivityIndicator size="small" color="white" />
+            ) : (
+              <Text style={styles.buttonText}>SIGN IN</Text>
+            )}
           </TouchableOpacity>
           
           <Text style={styles.signUpText}>
@@ -157,6 +192,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingTop: 15,
     paddingBottom: 15,
+  },
+  buttonDisabled: {
+    opacity: 0.6,
   },
   buttonText: {
     color: 'white',
