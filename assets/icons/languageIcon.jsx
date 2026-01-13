@@ -1,0 +1,21 @@
+import * as React from "react";
+import Svg, { Path } from "react-native-svg";
+const LanguageIcon = (props) => (
+  <Svg
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <Path
+      d="M1 12H7.11111M1 12C1 18.0751 5.92487 23 12 23M1 12C1 5.92487 5.92487 1 12 1M7.11111 12H16.8889M7.11111 12C7.11111 18.0751 9.29994 23 12 23M7.11111 12C7.11111 5.92487 9.29994 1 12 1M16.8889 12H23M16.8889 12C16.8889 5.92487 14.7001 1 12 1M16.8889 12C16.8889 18.0751 14.7001 23 12 23M23 12C23 5.92487 18.0751 1 12 1M23 12C23 18.0751 18.0751 23 12 23"
+      stroke="white"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+export default LanguageIcon;

@@ -27,6 +27,7 @@ const Home = () => {
           withCredentials: true, 
         });
         setUsername(response.data.username); 
+        setPhoto(response.data.profile_picture_url);
       } catch (error) {
         console.error('Error fetching user:', error);
       } finally {
@@ -52,15 +53,35 @@ const Home = () => {
     });
 
     if (!result.canceled) {
-      console.log(result.assets[0].uri); // URI of the captured image
+      const uri = result.assets[0].uri;
+      setPhoto(uri);
+      uploadProfilePicture(uri);
     }
 
-    if (!result.canceled) {
-      setPhoto(result.assets[0].uri);
-    }
   };
 
-  
+  //image upload
+  const uploadProfilePicture = async (uri) => {
+    const formData = new FormData();
+
+    formData.append('image', {
+      uri,
+      name: 'profile.jpg',
+      type: 'image/jpeg',
+    });
+
+    try {
+      const res = await api.post('/user/profile-picture', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      console.log(res.data.profile_picture_url);
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+    }
+  };
 
 
   if (loading) {
@@ -70,7 +91,7 @@ const Home = () => {
       </View>
     );
   }
-
+  
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <View style={styles.container}>
@@ -78,14 +99,19 @@ const Home = () => {
         <View style={styles.header}>
           <View style={{ width: 40}} />
           <Text style={styles.usernameText}>{username || 'user_name'}</Text>
-          <TouchableOpacity style={styles.createButton} onPress={() => router.push('/group_chat/create')}>
+          <TouchableOpacity style={styles.createButton} onPress={() => router.push('/pages/createGroupChat')}>
             <CreateIcon width={24} height={24}/>
           </TouchableOpacity>
         </View>
 
         <View style={styles.userAccounts}>
           <View style={styles.currentUserWrapper}>
-            <Ionicons name="person-circle-outline" size={98} color="white" />
+            {photo ? (
+              <Image source={{ uri: photo }} style={{ width: 98, height: 98, borderRadius: 49 }} />
+            ) : (
+              <Ionicons name="person-circle-outline" size={98} color="white" />
+            )}
+
             <TouchableOpacity style={styles.cameraIcon} onPress={openCamera}>
               <Ionicons name="camera" size={20} color="black" />
             </TouchableOpacity>
