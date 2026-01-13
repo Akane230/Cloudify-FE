@@ -76,7 +76,7 @@ const SignInPage = () => {
             </View>
           </View>
 
-          <TouchableOpacity style={styles.button} onPress={() => router.push('/tabs/home')}>
+          <TouchableOpacity style={styles.button} onPress={() => router.push('/tabs/message')}>
             <Text style={styles.buttonText}>SIGN IN</Text>
           </TouchableOpacity>
           
