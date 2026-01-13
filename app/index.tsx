@@ -127,6 +127,9 @@ const SignInPage = () => {
   )
 }
 
+
+export default SignInPage;
+
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
@@ -211,5 +214,3 @@ const styles = StyleSheet.create({
     color: '#72a1f1',
   },
 });
-
-export default SignInPage;

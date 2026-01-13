@@ -182,6 +182,8 @@ const SignUpPage2 = () => {
   );
 };
 
+export default SignUpPage2;
+
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
@@ -263,4 +265,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpPage2;
