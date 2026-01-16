@@ -1,6 +1,6 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
-const BackIcon = (props) => (
+const SVGComponent = (props) => (
   <Svg
     width={9}
     height={16}
@@ -18,4 +18,4 @@ const BackIcon = (props) => (
     />
   </Svg>
 );
-export default BackIcon;
+export default SVGComponent;

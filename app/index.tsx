@@ -72,8 +72,8 @@ const SignInPage = () => {
             <Text style={styles.label}>Email</Text>
             <View style={styles.innerContainer}>
               <TextInput
-                placeholder="enter email address"
-                placeholderTextColor="white"
+                placeholder="Enter email address"
+                placeholderTextColor="gray"
                 style={styles.input}
                 value={signInEmail}
                 onChangeText={setSignInEmail}
@@ -88,8 +88,8 @@ const SignInPage = () => {
             <Text style={styles.label}>Password</Text> 
             <View style={styles.innerContainer}>
               <TextInput
-                placeholder="enter password"
-                placeholderTextColor="white"
+                placeholder="Enter password"
+                placeholderTextColor="gray"
                 style={styles.passwordInput}
                 value={signInPassword}
                 onChangeText={setSignInPassword}
@@ -126,7 +126,6 @@ const SignInPage = () => {
       
   )
 }
-
 
 export default SignInPage;
 
@@ -169,7 +168,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingTop: 15,
     paddingBottom: 15,
-
   },
   label: {
     color: 'white',
