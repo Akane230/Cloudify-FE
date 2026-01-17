@@ -5,8 +5,9 @@ import * as ImagePicker from 'expo-image-picker';
 
 const AVATAR_SIZE = 96;
 
-const UserInfoHeader = ({ firstName, lastName, email, bio, photo, onPhotoChange }) => {
+const UserInfoHeader = ({ firstName, lastName, email, bio, photo, onPhotoChange, editable = false }) => {
   const openGallery = async () => {
+    if (!onPhotoChange) return;
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
       alert('Permission required');
@@ -33,19 +34,17 @@ const UserInfoHeader = ({ firstName, lastName, email, bio, photo, onPhotoChange 
             {photo ? (
               <Image source={{ uri: photo }} style={styles.avatar} />
             ) : (
-              <Ionicons
-                name="person-circle-outline"
-                size={AVATAR_SIZE}
-                color="white"
-              />
+              <Ionicons name="person-circle-outline" size={AVATAR_SIZE} color="white" />
             )}
 
-            <TouchableOpacity style={styles.cameraIcon} onPress={openGallery}>
-              <Ionicons name="camera" size={18} color="black" />
-            </TouchableOpacity>
+            {editable && onPhotoChange && (
+              <TouchableOpacity style={styles.cameraIcon} onPress={openGallery}>
+                <Ionicons name="camera" size={18} color="black" />
+              </TouchableOpacity>
+            )}
           </View>
 
-          {photo && (
+          {editable && onPhotoChange && photo && (
             <TouchableOpacity onPress={() => onPhotoChange({ type: 'remove' })}>
               <Text style={styles.remove}>Remove</Text>
             </TouchableOpacity>

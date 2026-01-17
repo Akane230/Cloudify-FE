@@ -143,6 +143,7 @@ const userInfo = () => {
             bio={editableBio}
             photo={photo}
             onPhotoChange={handlePhotoChange}
+            editable={true}
           />
 
           <View style={styles.outerContainer}>
@@ -327,6 +328,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-
-
 });

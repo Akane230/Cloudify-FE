@@ -96,7 +96,7 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.menuCard}>
+        <TouchableOpacity style={styles.menuCard} onPress={() => router.push('/pages/settings')}>
           <SettingsIcon width={24} height={24} />
           <Text style={styles.menuText}>Settings</Text>
         </TouchableOpacity>
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   logOutContainer: {
-    marginTop: 40,
+    marginTop: 180,
     marginBottom: 30,
   },
   logOutButton: {
